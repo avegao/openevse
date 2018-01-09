@@ -1,0 +1,7 @@
+package: github.com/avegao/openevse_http
+import: []
+testImport:
+- package: github.com/stretchr/testify
+  version: ^1.2.0
+- package: gopkg.in/h2non/gock.v1
+  version: ^1.0.7

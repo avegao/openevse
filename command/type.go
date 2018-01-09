@@ -1,0 +1,53 @@
+package command
+
+const (
+	DisableOpenEvse Type = "FD"
+	EnableOpenEvse  Type = "FE"
+	ResetOpenEvse   Type = "FD"
+	SleepOpenEvse   Type = "FS"
+
+	GetAmmeterSetings             Type = "GA"
+	GetAuthLockState              Type = "G4"
+	GetChargeLimit                Type = "GH"
+	GetChargingCurrentAndVoltage  Type = "GG"
+	GetCurrentCapacityRangeInAmps Type = "GC"
+	GetDelayTimer                 Type = "GD"
+	GetEnergyUsage                Type = "GU"
+	GetEvConnectState             Type = "G0"
+	GetFaultCounters              Type = "GF"
+	GetOverTemperatureThresholds  Type = "GO"
+	GetRtcTime                    Type = "GT"
+	GetSettings                   Type = "GE"
+	GetState                      Type = "GS"
+	GetTemperature                Type = "GP"
+	GetTimeLimit                  Type = "G3"
+	GetVersion                    Type = "GV"
+	GetVolmeterSettings           Type = "GM"
+
+	SetAccumulatedKwH            Type = "SK"
+	SetAmmeterCalibrationMode    Type = "S2"
+	SetAmmeterSettings           Type = "SA"
+	SetAuthLock                  Type = "S4"
+	SetChargeLimit               Type = "SH"
+	SetChargeTimeLimit           Type = "S3"
+	SetCommandEcho               Type = "SE"
+	SetCurrentCapacity           Type = "SC"
+	SetDiodeCheck                Type = "SD"
+	SetDisplayColor              Type = "FB"
+	SetDisplayType               Type = "S0"
+	SetDisplayUpdates            Type = "F0"
+	SetGfiCheck                  Type = "SF"
+	SetGroundCheck               Type = "SG"
+	SetOverTemperatureThresholds Type = "SO"
+	SetRtcClock                  Type = "S1"
+	SetServiceLevel              Type = "SL"
+	SetState                     Type = "ST"
+	SetStuckRelayCheck           Type = "SR"
+	SetTimer                     Type = "ST"
+	SetVentilationRequiredCheck  Type = "SV"
+	SetVolmeterSettings          Type = "SM"
+
+	PrintText Type = "FP"
+)
+
+type Type string
