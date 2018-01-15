@@ -1,4 +1,4 @@
-package openevse
+package getVersion
 
 import (
 	"testing"
@@ -9,11 +9,7 @@ import (
 	"github.com/avegao/openevse/command"
 )
 
-//func TestGetRtcTime(t *testing.T) {
-//	assert.Equal(t, "a", "a")
-//}
-
-func TestGetVersion(t *testing.T) {
+func TestGetVersionCommand_Run(t *testing.T) {
 	const firmwareVersionExpected = "4.8.0"
 	const protocolVersionExpected = "3.0.1"
 
@@ -29,6 +25,11 @@ func TestGetVersion(t *testing.T) {
 
 	assert.NoError(t, r.Error)
 
-	GetVersion(host)
-	assert.Equal(t, "a", "a")
+	firmwareVersion, protocolVersion, err := New().Run("192.168.1.156")
+
+	assert.NoError(t, err)
+	assert.NotEmpty(t, firmwareVersion)
+	assert.Equal(t, firmwareVersionExpected, firmwareVersion)
+	assert.NotEmpty(t, protocolVersion)
+	assert.Equal(t, protocolVersionExpected, protocolVersion)
 }
