@@ -7,8 +7,8 @@ import (
 )
 
 type getVersionCommandInterface interface {
-	Run(response string) (string, error)
-	parseResponse(response string) (string, error)
+	Run(response string) (firmwareVersion string, protocolVersion string, err error)
+	parseResponse(response string) (firmwareVersion string, protocolVersion string, err error)
 }
 
 type getVersionCommand struct {
