@@ -17,7 +17,7 @@ type getAmmeterSettingsCommand struct {
 }
 
 func (c getAmmeterSettingsCommand) Run(host string) (currentScaleFactor int, currentOffset int, err error) {
-	c.Type = command.GetAmmeterSetings
+	c.Type = command.GetAmmeterSettings
 
 	response, err := c.SendRequest(host)
 
@@ -30,7 +30,7 @@ func (c getAmmeterSettingsCommand) Run(host string) (currentScaleFactor int, cur
 
 func New() getAmmeterSettingsCommand {
 	c := getAmmeterSettingsCommand{}
-	c.Type = command.GetAmmeterSetings
+	c.Type = command.GetAmmeterSettings
 
 	return c
 }

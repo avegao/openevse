@@ -6,7 +6,7 @@ const (
 	ResetOpenEvse   Type = "FD"
 	SleepOpenEvse   Type = "FS"
 
-	GetAmmeterSetings             Type = "GA"
+	GetAmmeterSettings            Type = "GA"
 	GetAuthLockState              Type = "G4"
 	GetChargeLimit                Type = "GH"
 	GetChargingCurrentAndVoltage  Type = "GG"

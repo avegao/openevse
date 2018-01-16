@@ -81,7 +81,7 @@ func TestGetAmmeterSettings(t *testing.T) {
 		Reply(http.StatusOK).
 		JSON(
 		command.Response{
-			Command:  fmt.Sprintf("$%s", command.GetAmmeterSetings),
+			Command:  fmt.Sprintf("$%s", command.GetAmmeterSettings),
 			Response: fmt.Sprintf("$OK %d %d", expectedCurrentScaleFactor, expectedCurrentOffset),
 		})
 
