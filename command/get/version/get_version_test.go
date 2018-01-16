@@ -32,4 +32,6 @@ func TestGetVersionCommand_Run(t *testing.T) {
 	assert.Equal(t, firmwareVersionExpected, firmwareVersion)
 	assert.NotEmpty(t, protocolVersion)
 	assert.Equal(t, protocolVersionExpected, protocolVersion)
+
+	assert.True(t, gock.IsDone())
 }
