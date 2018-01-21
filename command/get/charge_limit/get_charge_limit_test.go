@@ -18,7 +18,7 @@ func TestGetChargeLimit_Run(t *testing.T) {
 		Reply(http.StatusOK).
 		JSON(
 		command.Response{
-			Command:  fmt.Sprintf("$%s", command.GetRtcTime),
+			Command:  fmt.Sprintf("$%s", command.GetChargeLimit),
 			Response: fmt.Sprintf("$OK %d", kwhExpected),
 		})
 

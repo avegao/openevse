@@ -19,7 +19,7 @@ func TestGetVersionCommand_Run(t *testing.T) {
 		Reply(http.StatusOK).
 		JSON(
 		command.Response{
-			Command:  fmt.Sprintf("$%s", command.GetRtcTime),
+			Command:  fmt.Sprintf("$%s", command.GetVersion),
 			Response: fmt.Sprintf("$OK %s %s", firmwareVersionExpected, protocolVersionExpected),
 		})
 
