@@ -35,3 +35,7 @@ func TestGetDelayTimer_Run(t *testing.T) {
 
 	assert.True(t, gock.IsDone())
 }
+
+func TestNew(t *testing.T) {
+	assert.NotEmpty(t, New())
+}
