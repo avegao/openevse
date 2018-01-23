@@ -7,13 +7,13 @@ import (
 	"github.com/avegao/openevse/util"
 )
 
-type getDelayTimerInterface interface {
+type getEnergyUsageInterface interface {
 	Run(response string) (firmwareVersion string, protocolVersion string, err error)
 	parseResponse(response string) (firmwareVersion string, protocolVersion string, err error)
 }
 
 type getEnergyUsage struct {
-	getDelayTimerInterface
+	getEnergyUsageInterface
 	command.Command
 }
 
