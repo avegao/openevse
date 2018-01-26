@@ -7,3 +7,9 @@ func ParseInt(valueToParse string) (int, error) {
 
 	return int(value), err
 }
+
+func ParseHexInt(valueToParse string) (int, error) {
+	value, err := strconv.ParseInt(valueToParse, 16, 0)
+
+	return int(value), err
+}
