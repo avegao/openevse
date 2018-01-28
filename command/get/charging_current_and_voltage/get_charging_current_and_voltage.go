@@ -8,8 +8,8 @@ import (
 )
 
 type getChargingCurrentAndVoltageInterface interface {
-	Run(response string) (firmwareVersion string, protocolVersion string, err error)
-	parseResponse(response string) (firmwareVersion string, protocolVersion string, err error)
+	Run(response string) (milliAmps int, milliVolts int, err error)
+	parseResponse(response string) (milliAmps int, milliVolts int, err error)
 }
 
 type getChargingCurrentAndVoltage struct {

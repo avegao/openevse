@@ -9,7 +9,13 @@ import (
 	"github.com/avegao/openevse_http/util"
 )
 
+type getRtcTimeCommandInterface interface {
+	Run(response string) (rtcTime time.Time, err error)
+	parseResponse(response string) (rtcTime time.Time, err error)
+}
+
 type getRtcTimeCommand struct {
+	getRtcTimeCommandInterface
 	command.Command
 }
 

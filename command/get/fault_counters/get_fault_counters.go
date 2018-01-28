@@ -8,8 +8,8 @@ import (
 )
 
 type getFaultCountersInterface interface {
-	Run(response string) (firmwareVersion string, protocolVersion string, err error)
-	parseResponse(response string) (firmwareVersion string, protocolVersion string, err error)
+	Run(response string) (gfdi int, noGround int, stuckRelay int, err error)
+	parseResponse(response string) (gfdi int, noGround int, stuckRelay int, err error)
 }
 
 type getFaultCounters struct {

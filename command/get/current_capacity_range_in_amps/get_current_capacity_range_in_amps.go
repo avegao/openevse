@@ -8,8 +8,8 @@ import (
 )
 
 type getCurrentCapacityRangeInAmpsInterface interface {
-	Run(response string) (firmwareVersion string, protocolVersion string, err error)
-	parseResponse(response string) (firmwareVersion string, protocolVersion string, err error)
+	Run(response string) (minAmps int, maxAmps int, err error)
+	parseResponse(response string) (minAmps int, maxAmps int, err error)
 }
 
 type getCurrentCapacityRangeInAmps struct {

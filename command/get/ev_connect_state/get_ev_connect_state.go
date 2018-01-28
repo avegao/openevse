@@ -9,8 +9,8 @@ import (
 )
 
 type getEvConnectStateInterface interface {
-	Run(response string) (firmwareVersion string, protocolVersion string, err error)
-	parseResponse(response string) (firmwareVersion string, protocolVersion string, err error)
+	Run(response string) (state evConnectState.EvConnectState, err error)
+	parseResponse(response string) (state evConnectState.EvConnectState, err error)
 }
 
 type getEvConnectState struct {

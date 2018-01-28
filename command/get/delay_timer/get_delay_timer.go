@@ -8,8 +8,8 @@ import (
 )
 
 type getDelayTimerInterface interface {
-	Run(response string) (firmwareVersion string, protocolVersion string, err error)
-	parseResponse(response string) (firmwareVersion string, protocolVersion string, err error)
+	Run(response string) (startTime string, endTime string, err error)
+	parseResponse(response string) (startTime string, endTime string, err error)
 }
 
 type getDelayTimer struct {

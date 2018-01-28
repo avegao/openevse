@@ -8,8 +8,8 @@ import (
 )
 
 type getOverTemperatureThresholdsInterface interface {
-	Run(response string) (firmwareVersion string, protocolVersion string, err error)
-	parseResponse(response string) (firmwareVersion string, protocolVersion string, err error)
+	Run(response string) (ambient float32, ir float32, err error)
+	parseResponse(response string) (ambient float32, ir float32, err error)
 }
 
 type getOverTemperatureThresholds struct {

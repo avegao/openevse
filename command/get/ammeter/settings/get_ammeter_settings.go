@@ -7,8 +7,8 @@ import (
 )
 
 type getAmmeterSettingsCommandInterface interface {
-	Run(response string) (string, error)
-	parseResponse(response string) (error)
+	Run(response string) (currentScaleFactor int, currentOffset int, err error)
+	parseResponse(response string) (currentScaleFactor int, currentOffset int, err error)
 }
 
 type getAmmeterSettingsCommand struct {
@@ -25,17 +25,10 @@ func (c getAmmeterSettingsCommand) Run(host string) (currentScaleFactor int, cur
 		return
 	}
 
-	return parseResponse(response.Response)
+	return c.parseResponse(response.Response)
 }
 
-func New() getAmmeterSettingsCommand {
-	c := getAmmeterSettingsCommand{}
-	c.Type = command.GetAmmeterSettings
-
-	return c
-}
-
-func parseResponse(response string) (currentScaleFactor int, currentOffset int, err error) {
+func (c getAmmeterSettingsCommand) parseResponse(response string) (currentScaleFactor int, currentOffset int, err error) {
 	split := strings.Split(response, " ")
 
 	if currentScaleFactor, err = util.ParseInt(split[1]); err != nil {
@@ -47,4 +40,11 @@ func parseResponse(response string) (currentScaleFactor int, currentOffset int, 
 	}
 
 	return
+}
+
+func New() getAmmeterSettingsCommand {
+	c := getAmmeterSettingsCommand{}
+	c.Type = command.GetAmmeterSettings
+
+	return c
 }

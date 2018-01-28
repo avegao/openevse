@@ -7,8 +7,8 @@ import (
 )
 
 type getAuthLockStateInterface interface {
-	Run(response string) (firmwareVersion string, protocolVersion string, err error)
-	parseResponse(response string) (firmwareVersion string, protocolVersion string, err error)
+	Run(response string) (locked bool, err error)
+	parseResponse(response string) (locked bool, err error)
 }
 
 type getAuthLockStateCommand struct {

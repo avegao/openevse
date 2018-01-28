@@ -8,8 +8,8 @@ import (
 )
 
 type getEnergyUsageInterface interface {
-	Run(response string) (firmwareVersion string, protocolVersion string, err error)
-	parseResponse(response string) (firmwareVersion string, protocolVersion string, err error)
+	Run(response string) (whInSession int, whAccumulated int, err error)
+	parseResponse(response string) (whInSession int, whAccumulated int, err error)
 }
 
 type getEnergyUsage struct {

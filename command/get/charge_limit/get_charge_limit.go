@@ -8,8 +8,8 @@ import (
 )
 
 type getChargeLimitInterface interface {
-	Run(response string) (firmwareVersion string, protocolVersion string, err error)
-	parseResponse(response string) (firmwareVersion string, protocolVersion string, err error)
+	Run(response string) (kwh int, err error)
+	parseResponse(response string) (kwh int, err error)
 }
 
 type getChargeLimit struct {
