@@ -22,7 +22,7 @@ const (
 	GetTemperature                Type = "GP"
 	GetTimeLimit                  Type = "G3"
 	GetVersion                    Type = "GV"
-	GetVolmeterSettings           Type = "GM"
+	GetVoltmeterSettings          Type = "GM"
 
 	SetAccumulatedKwH            Type = "SK"
 	SetAmmeterCalibrationMode    Type = "S2"
