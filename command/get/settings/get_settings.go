@@ -8,8 +8,8 @@ import (
 )
 
 type getSettingsCommandInterface interface {
-	Run(response string) (amperes int, flags interface{}, err error)
-	parseResponse(response string) (amperes int, flags interface{}, err error)
+	Run(host string) (amperes int, flags interface{}, err error)
+	parseResponse(response string) (amperes int, flags int, err error)
 }
 
 type getSettingsCommand struct {

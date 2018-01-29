@@ -8,7 +8,7 @@ import (
 )
 
 type getFaultCountersInterface interface {
-	Run(response string) (gfdi int, noGround int, stuckRelay int, err error)
+	Run(host string) (gfdi int, noGround int, stuckRelay int, err error)
 	parseResponse(response string) (gfdi int, noGround int, stuckRelay int, err error)
 }
 
