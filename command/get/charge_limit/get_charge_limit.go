@@ -8,7 +8,7 @@ import (
 )
 
 type getChargeLimitInterface interface {
-	Run(response string) (kwh int, err error)
+	Run() (kwh int, err error)
 	parseResponse(response string) (kwh int, err error)
 }
 
@@ -17,10 +17,8 @@ type getChargeLimit struct {
 	command.Command
 }
 
-func (c getChargeLimit) Run(host string) (kwh int, err error) {
-	c.Type = command.GetChargeLimit
-
-	response, err := c.SendRequest(host)
+func (c getChargeLimit) Run() (kwh int, err error) {
+	response, err := c.SendRequest()
 
 	if err != nil {
 		return
@@ -44,8 +42,9 @@ func (c getChargeLimit) parseResponse(response string) (kwh int, err error) {
 	return
 }
 
-func New() getChargeLimit {
+func New(host string) getChargeLimit {
 	c := new(getChargeLimit)
+	c.Host = host
 	c.Type = command.GetChargeLimit
 
 	return *c

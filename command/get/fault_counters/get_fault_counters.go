@@ -8,7 +8,7 @@ import (
 )
 
 type getFaultCountersInterface interface {
-	Run(host string) (gfdi int, noGround int, stuckRelay int, err error)
+	Run() (gfdi int, noGround int, stuckRelay int, err error)
 	parseResponse(response string) (gfdi int, noGround int, stuckRelay int, err error)
 }
 
@@ -17,10 +17,8 @@ type getFaultCounters struct {
 	command.Command
 }
 
-func (c getFaultCounters) Run(host string) (gfdi int, noGround int, stuckRelay int, err error) {
-	c.Type = command.GetFaultCounters
-
-	response, err := c.SendRequest(host)
+func (c getFaultCounters) Run() (gfdi int, noGround int, stuckRelay int, err error) {
+	response, err := c.SendRequest()
 
 	if err != nil {
 		return
@@ -54,8 +52,9 @@ func (c getFaultCounters) parseResponse(response string) (gfdi int, noGround int
 	return
 }
 
-func New() getFaultCounters {
+func New(host string) getFaultCounters {
 	c := new(getFaultCounters)
+	c.Host = host
 	c.Type = command.GetFaultCounters
 
 	return *c

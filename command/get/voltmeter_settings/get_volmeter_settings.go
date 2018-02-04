@@ -8,8 +8,8 @@ import (
 )
 
 type getVoltmeterSettingsInterface interface {
-	Run(host string) (calefactor int, offset int, err error)
-	parseResponse(response string) (limit int, err error)
+	Run() (calefactor int, offset int, err error)
+	parseResponse(response string) (calefactor int, offset int, err error)
 }
 
 type getVoltmeterSettings struct {
@@ -17,10 +17,8 @@ type getVoltmeterSettings struct {
 	command.Command
 }
 
-func (c getVoltmeterSettings) Run(host string) (calefactor int, offset int, err error) {
-	c.Type = command.GetVoltmeterSettings
-
-	response, err := c.SendRequest(host)
+func (c getVoltmeterSettings) Run() (calefactor int, offset int, err error) {
+	response, err := c.SendRequest()
 
 	if err != nil {
 		return
@@ -31,8 +29,6 @@ func (c getVoltmeterSettings) Run(host string) (calefactor int, offset int, err 
 
 func (c getVoltmeterSettings) parseResponse(response string) (calefactor int, offset int, err error) {
 	split := strings.Split(response, " ")
-
-	println(response)
 
 	switch split[0] {
 	case command.SuccessResponse:
@@ -52,8 +48,9 @@ func (c getVoltmeterSettings) parseResponse(response string) (calefactor int, of
 	return
 }
 
-func New() getVoltmeterSettings {
+func New(host string) getVoltmeterSettings {
 	c := new(getVoltmeterSettings)
+	c.Host = host
 	c.Type = command.GetVoltmeterSettings
 
 	return *c

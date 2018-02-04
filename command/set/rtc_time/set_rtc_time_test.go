@@ -23,12 +23,12 @@ func TestGetRtcTimeCommand_Run(t *testing.T) {
 
 	assert.NoError(t, r.Error)
 
-	err := New().Run("192.168.1.156", time.Now())
+	err := New("192.168.1.156").Run(time.Now())
 
 	assert.NoError(t, err)
 	assert.True(t, gock.IsDone())
 }
 
 func TestNew(t *testing.T) {
-	assert.NotEmpty(t, New())
+	assert.NotEmpty(t, New("192.168.1.156"))
 }

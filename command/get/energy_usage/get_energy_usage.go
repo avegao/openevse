@@ -8,7 +8,7 @@ import (
 )
 
 type getEnergyUsageInterface interface {
-	Run(response string) (whInSession int, whAccumulated int, err error)
+	Run() (whInSession int, whAccumulated int, err error)
 	parseResponse(response string) (whInSession int, whAccumulated int, err error)
 }
 
@@ -17,10 +17,8 @@ type getEnergyUsage struct {
 	command.Command
 }
 
-func (c getEnergyUsage) Run(host string) (whInSession int, whAccumulated int, err error) {
-	c.Type = command.GetEnergyUsage
-
-	response, err := c.SendRequest(host)
+func (c getEnergyUsage) Run() (whInSession int, whAccumulated int, err error) {
+	response, err := c.SendRequest()
 
 	if err != nil {
 		return
@@ -47,8 +45,9 @@ func (c getEnergyUsage) parseResponse(response string) (whInSession int, whAccum
 	return
 }
 
-func New() getEnergyUsage {
+func New(host string) getEnergyUsage {
 	c := new(getEnergyUsage)
+	c.Host = host
 	c.Type = command.GetEnergyUsage
 
 	return *c

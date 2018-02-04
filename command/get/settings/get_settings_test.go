@@ -27,7 +27,7 @@ func TestGetSettingsCommand_Run(t *testing.T) {
 
 	assert.NoError(t, r.Error)
 
-	amperes, flags, err := New().Run("192.168.1.156")
+	amperes, flags, err := New("192.168.1.156").Run()
 
 	assert.NoError(t, err)
 	assert.Equal(t, expectedAmperes, amperes)
@@ -36,5 +36,5 @@ func TestGetSettingsCommand_Run(t *testing.T) {
 }
 
 func TestNew(t *testing.T) {
-	assert.NotEmpty(t, New())
+	assert.NotEmpty(t, New("192.168.1.156"))
 }

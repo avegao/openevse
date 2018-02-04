@@ -25,7 +25,7 @@ func TestGetVersionCommand_Run(t *testing.T) {
 
 	assert.NoError(t, r.Error)
 
-	firmwareVersion, protocolVersion, err := New().Run("192.168.1.156")
+	firmwareVersion, protocolVersion, err := New("192.168.1.156").Run()
 
 	assert.NoError(t, err)
 	assert.NotEmpty(t, firmwareVersion)

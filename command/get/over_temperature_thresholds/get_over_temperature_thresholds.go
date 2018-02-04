@@ -8,7 +8,7 @@ import (
 )
 
 type getOverTemperatureThresholdsInterface interface {
-	Run(response string) (ambient float32, ir float32, err error)
+	Run() (ambient float32, ir float32, err error)
 	parseResponse(response string) (ambient float32, ir float32, err error)
 }
 
@@ -17,10 +17,8 @@ type getOverTemperatureThresholds struct {
 	command.Command
 }
 
-func (c getOverTemperatureThresholds) Run(host string) (ambient float32, ir float32, err error) {
-	c.Type = command.GetOverTemperatureThresholds
-
-	response, err := c.SendRequest(host)
+func (c getOverTemperatureThresholds) Run() (ambient float32, ir float32, err error) {
+	response, err := c.SendRequest()
 
 	if err != nil {
 		return
@@ -55,8 +53,9 @@ func (c getOverTemperatureThresholds) parseResponse(response string) (ambient fl
 	return
 }
 
-func New() getOverTemperatureThresholds {
+func New(host string) getOverTemperatureThresholds {
 	c := new(getOverTemperatureThresholds)
+	c.Host = host
 	c.Type = command.GetOverTemperatureThresholds
 
 	return *c

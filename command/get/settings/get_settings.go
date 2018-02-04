@@ -8,7 +8,7 @@ import (
 )
 
 type getSettingsCommandInterface interface {
-	Run(host string) (amperes int, flags interface{}, err error)
+	Run() (amperes int, flags interface{}, err error)
 	parseResponse(response string) (amperes int, flags int, err error)
 }
 
@@ -17,10 +17,8 @@ type getSettingsCommand struct {
 	command.Command
 }
 
-func (c getSettingsCommand) Run(host string) (amperes int, flags interface{}, err error) {
-	c.Type = command.GetSettings
-
-	response, err := c.SendRequest(host)
+func (c getSettingsCommand) Run() (amperes int, flags interface{}, err error) {
+	response, err := c.SendRequest()
 
 	if err != nil {
 		return
@@ -50,8 +48,9 @@ func (c getSettingsCommand) parseResponse(response string) (amperes int, flags i
 	return
 }
 
-func New() getSettingsCommand {
+func New(host string) getSettingsCommand {
 	c := new(getSettingsCommand)
+	c.Host = host
 	c.Type = command.GetSettings
 
 	return *c

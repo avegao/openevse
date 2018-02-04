@@ -23,7 +23,7 @@ func TestGetRtcTimeCommand_Run(t *testing.T) {
 
 	assert.NoError(t, r.Error)
 
-	rtcTime, err := New().Run("foo.com")
+	rtcTime, err := New("192.168.1.156").Run()
 
 	assert.NoError(t, err)
 	assert.Equal(t, rtcTime, time.Date(2018, 1, 7, 16, 24, 9, 0, time.UTC))
@@ -43,7 +43,7 @@ func TestGetRtcTimeCommand_Run(t *testing.T) {
 
 	assert.NoError(t, r.Error)
 
-	rtcTime, err = New().Run("foo.com")
+	rtcTime, err = New("192.168.1.156").Run()
 
 	assert.NoError(t, err)
 	assert.Equal(t, rtcTime, now)
@@ -52,5 +52,5 @@ func TestGetRtcTimeCommand_Run(t *testing.T) {
 }
 
 func TestNew(t *testing.T) {
-	assert.NotEmpty(t, New())
+	assert.NotEmpty(t, New("192.168.1.156"))
 }

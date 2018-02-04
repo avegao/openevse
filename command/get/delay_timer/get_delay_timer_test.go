@@ -25,7 +25,7 @@ func TestGetDelayTimer_Run(t *testing.T) {
 
 	assert.NoError(t, r.Error)
 
-	startTime, endTime, err := New().Run("192.168.1.156")
+	startTime, endTime, err := New("192.168.1.156").Run()
 
 	assert.NoError(t, err)
 	assert.NotEmpty(t, startTime)
@@ -37,5 +37,5 @@ func TestGetDelayTimer_Run(t *testing.T) {
 }
 
 func TestNew(t *testing.T) {
-	assert.NotEmpty(t, New())
+	assert.NotEmpty(t, New("192.168.1.156"))
 }

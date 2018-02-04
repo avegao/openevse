@@ -9,7 +9,7 @@ import (
 )
 
 type getEvConnectStateInterface interface {
-	Run(response string) (state evConnectState.EvConnectState, err error)
+	Run() (state evConnectState.EvConnectState, err error)
 	parseResponse(response string) (state evConnectState.EvConnectState, err error)
 }
 
@@ -18,10 +18,8 @@ type getEvConnectState struct {
 	command.Command
 }
 
-func (c getEvConnectState) Run(host string) (state evConnectState.EvConnectState, err error) {
-	c.Type = command.GetEvConnectState
-
-	response, err := c.SendRequest(host)
+func (c getEvConnectState) Run() (state evConnectState.EvConnectState, err error) {
+	response, err := c.SendRequest()
 
 	if err != nil {
 		return
@@ -48,8 +46,9 @@ func (c getEvConnectState) parseResponse(response string) (state evConnectState.
 	return
 }
 
-func New() getEvConnectState {
+func New(host string) getEvConnectState {
 	c := new(getEvConnectState)
+	c.Host = host
 	c.Type = command.GetEvConnectState
 
 	return *c

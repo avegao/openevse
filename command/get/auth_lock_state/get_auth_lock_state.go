@@ -7,7 +7,7 @@ import (
 )
 
 type getAuthLockStateInterface interface {
-	Run(response string) (locked bool, err error)
+	Run() (locked bool, err error)
 	parseResponse(response string) (locked bool, err error)
 }
 
@@ -16,18 +16,16 @@ type getAuthLockStateCommand struct {
 	command.Command
 }
 
-func (c getAuthLockStateCommand) Run(host string) (locked bool, err error) {
+func (c getAuthLockStateCommand) Run() (locked bool, err error) {
 	return false, errors.New("openevse - this method seem that is not implement in the device")
 
-	c.Type = command.GetAuthLockState
-
-	response, err := c.SendRequest(host)
-
-	if err != nil {
-		return
-	}
-
-	return c.parseResponse(response.Response)
+	//response, err := c.SendRequest()
+	//
+	//if err != nil {
+	//	return
+	//}
+	//
+	//return c.parseResponse(response.Response)
 }
 
 func (c getAuthLockStateCommand) parseResponse(response string) (locked bool, err error) {
@@ -35,7 +33,7 @@ func (c getAuthLockStateCommand) parseResponse(response string) (locked bool, er
 
 	switch split[0] {
 	case command.SuccessResponse:
-		println(response)
+		return
 	case command.FailureResponse:
 		err = errors.New("invalid request")
 	default:
@@ -45,8 +43,9 @@ func (c getAuthLockStateCommand) parseResponse(response string) (locked bool, er
 	return
 }
 
-func New() getAuthLockStateCommand {
+func New(host string) getAuthLockStateCommand {
 	c := new(getAuthLockStateCommand)
+	c.Host = host
 	c.Type = command.GetVersion
 
 	return *c

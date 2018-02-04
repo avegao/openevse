@@ -30,7 +30,7 @@ func TestGetEvConnectState_Run(t *testing.T) {
 
 		assert.NoError(t, r.Error)
 
-		state, err := New().Run("192.168.1.156")
+		state, err := New("192.168.1.156").Run()
 
 		assert.NoError(t, err)
 		assert.Equal(t, expected, state)
@@ -40,5 +40,5 @@ func TestGetEvConnectState_Run(t *testing.T) {
 }
 
 func TestNew(t *testing.T) {
-	assert.NotEmpty(t, New())
+	assert.NotEmpty(t, New("192.168.1.156"))
 }

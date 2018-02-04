@@ -7,7 +7,7 @@ import (
 )
 
 type getVersionCommandInterface interface {
-	Run(response string) (firmwareVersion string, protocolVersion string, err error)
+	Run() (firmwareVersion string, protocolVersion string, err error)
 	parseResponse(response string) (firmwareVersion string, protocolVersion string, err error)
 }
 
@@ -16,10 +16,8 @@ type getVersionCommand struct {
 	command.Command
 }
 
-func (c getVersionCommand) Run(host string) (firmwareVersion string, protocolVersion string, err error) {
-	c.Type = command.GetVersion
-
-	response, err := c.SendRequest(host)
+func (c getVersionCommand) Run() (firmwareVersion string, protocolVersion string, err error) {
+	response, err := c.SendRequest()
 
 	if err != nil {
 		return
@@ -43,8 +41,9 @@ func (c getVersionCommand) parseResponse(response string) (firmwareVersion strin
 	return
 }
 
-func New() getVersionCommand {
+func New(host string) getVersionCommand {
 	c := new(getVersionCommand)
+	c.Host = host
 	c.Type = command.GetVersion
 
 	return *c

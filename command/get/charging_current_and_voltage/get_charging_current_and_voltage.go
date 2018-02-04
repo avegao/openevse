@@ -8,7 +8,7 @@ import (
 )
 
 type getChargingCurrentAndVoltageInterface interface {
-	Run(response string) (milliAmps int, milliVolts int, err error)
+	Run() (milliAmps int, milliVolts int, err error)
 	parseResponse(response string) (milliAmps int, milliVolts int, err error)
 }
 
@@ -17,10 +17,8 @@ type getChargingCurrentAndVoltage struct {
 	command.Command
 }
 
-func (c getChargingCurrentAndVoltage) Run(host string) (milliAmps int, milliVolts int, err error) {
-	c.Type = command.GetChargingCurrentAndVoltage
-
-	response, err := c.SendRequest(host)
+func (c getChargingCurrentAndVoltage) Run() (milliAmps int, milliVolts int, err error) {
+	response, err := c.SendRequest()
 
 	if err != nil {
 		return
@@ -50,8 +48,9 @@ func (c getChargingCurrentAndVoltage) parseResponse(response string) (milliAmps 
 	return
 }
 
-func New() getChargingCurrentAndVoltage {
+func New(host string) getChargingCurrentAndVoltage {
 	c := new(getChargingCurrentAndVoltage)
+	c.Host = host
 	c.Type = command.GetChargingCurrentAndVoltage
 
 	return *c

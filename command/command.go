@@ -12,11 +12,12 @@ const (
 )
 
 type Command struct {
-	Type Type
+	Host  string
+	Type  Type
 	Value string
 }
 
-func (c Command) SendRequest(host string, parameters ...string) (*Response, error) {
+func (c Command) SendRequest(parameters ...string) (*Response, error) {
 	parametersString := fmt.Sprintf("%s", c.Type)
 
 	for _, parameter := range parameters {
@@ -25,7 +26,7 @@ func (c Command) SendRequest(host string, parameters ...string) (*Response, erro
 
 	parametersString = url.QueryEscape(parametersString)
 
-	urlRequest := fmt.Sprintf(urlTemplate, host, parametersString)
+	urlRequest := fmt.Sprintf(urlTemplate, c.Host, parametersString)
 	response, err := http.Get(urlRequest)
 
 	if err != nil {

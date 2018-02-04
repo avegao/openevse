@@ -27,7 +27,7 @@ func TestGetOverTemperatureThresholds_Run(t *testing.T) {
 
 	assert.NoError(t, r.Error)
 
-	ambient, ir, err := New().Run("192.168.1.156")
+	ambient, ir, err := New("192.168.1.156").Run()
 
 	assert.NoError(t, err)
 	assert.Equal(t, expectedAmbient, ambient)
@@ -36,5 +36,5 @@ func TestGetOverTemperatureThresholds_Run(t *testing.T) {
 }
 
 func TestNew(t *testing.T) {
-	assert.NotEmpty(t, New())
+	assert.NotEmpty(t, New("192.168.1.156"))
 }

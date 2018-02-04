@@ -2,15 +2,15 @@ package getRtcTime
 
 import (
 	"time"
-	"github.com/avegao/openevse_http/command"
 	"strings"
 	"errors"
 	"fmt"
-	"github.com/avegao/openevse_http/util"
+	"github.com/avegao/openevse/command"
+	"github.com/avegao/openevse/util"
 )
 
 type getRtcTimeCommandInterface interface {
-	Run(host string) (rtcTime time.Time, err error)
+	Run() (rtcTime time.Time, err error)
 	parseResponse(response string) (rtcTime time.Time, err error)
 }
 
@@ -19,10 +19,8 @@ type getRtcTimeCommand struct {
 	command.Command
 }
 
-func (c getRtcTimeCommand) Run(host string) (rtcTime time.Time, err error) {
-	c.Type = command.GetRtcTime
-
-	response, err := c.SendRequest(host)
+func (c getRtcTimeCommand) Run() (rtcTime time.Time, err error) {
+	response, err := c.SendRequest()
 
 	if err != nil {
 		return
@@ -46,8 +44,9 @@ func (c getRtcTimeCommand) parseResponse(response string) (rtcTime time.Time, er
 	return
 }
 
-func New() getRtcTimeCommand {
+func New(host string) getRtcTimeCommand {
 	c := new(getRtcTimeCommand)
+	c.Host = host
 	c.Type = command.GetRtcTime
 
 	return *c

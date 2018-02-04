@@ -25,8 +25,7 @@ func TestGetAmmeterSettingsCommand_Run(t *testing.T) {
 
 	assert.NoError(t, r.Error)
 
-	command := New()
-	currentScaleFactor, currentOffset, err := command.Run("192.168.1.156")
+	currentScaleFactor, currentOffset, err := New("192.168.1.156").Run()
 
 	assert.NoError(t, err)
 	assert.Equal(t, expectedCurrentScaleFactor, currentScaleFactor)
@@ -36,5 +35,5 @@ func TestGetAmmeterSettingsCommand_Run(t *testing.T) {
 }
 
 func TestNew(t *testing.T) {
-	assert.NotEmpty(t, New())
+	assert.NotEmpty(t, New("192.168.1.156"))
 }

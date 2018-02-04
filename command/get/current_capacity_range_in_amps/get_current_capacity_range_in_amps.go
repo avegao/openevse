@@ -8,7 +8,7 @@ import (
 )
 
 type getCurrentCapacityRangeInAmpsInterface interface {
-	Run(response string) (minAmps int, maxAmps int, err error)
+	Run() (minAmps int, maxAmps int, err error)
 	parseResponse(response string) (minAmps int, maxAmps int, err error)
 }
 
@@ -17,10 +17,8 @@ type getCurrentCapacityRangeInAmps struct {
 	command.Command
 }
 
-func (c getCurrentCapacityRangeInAmps) Run(host string) (minAmps int, maxAmps int, err error) {
-	c.Type = command.GetCurrentCapacityRangeInAmps
-
-	response, err := c.SendRequest(host)
+func (c getCurrentCapacityRangeInAmps) Run() (minAmps int, maxAmps int, err error) {
+	response, err := c.SendRequest()
 
 	if err != nil {
 		return
@@ -50,8 +48,9 @@ func (c getCurrentCapacityRangeInAmps) parseResponse(response string) (minAmps i
 	return
 }
 
-func New() getCurrentCapacityRangeInAmps {
+func New(host string) getCurrentCapacityRangeInAmps {
 	c := new(getCurrentCapacityRangeInAmps)
+	c.Host = host
 	c.Type = command.GetCurrentCapacityRangeInAmps
 
 	return *c

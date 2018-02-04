@@ -9,7 +9,7 @@ import (
 )
 
 type setRtcTimeCommandInterface interface {
-	Run(host string, rtcTime time.Time) (err error)
+	Run(rtcTime time.Time) (err error)
 }
 
 type setRtcTimeCommand struct {
@@ -17,9 +17,7 @@ type setRtcTimeCommand struct {
 	command.Command
 }
 
-func (c setRtcTimeCommand) Run(host string, rtcTime time.Time) (err error) {
-	c.Type = command.SetRtcTime
-
+func (c setRtcTimeCommand) Run(rtcTime time.Time) (err error) {
 	year := []byte(fmt.Sprintf("%d", rtcTime.Year()))
 	month := rtcTime.Month() - 1
 
@@ -33,7 +31,7 @@ func (c setRtcTimeCommand) Run(host string, rtcTime time.Time) (err error) {
 		rtcTime.Second(),
 	)
 
-	response, err := c.SendRequest(host, timeString)
+	response, err := c.SendRequest(timeString)
 
 	if err != nil {
 		return
@@ -59,8 +57,9 @@ func (c setRtcTimeCommand) parseResponse(response string) (err error) {
 	return
 }
 
-func New() setRtcTimeCommand {
+func New(host string) setRtcTimeCommand {
 	c := new(setRtcTimeCommand)
+	c.Host = host
 	c.Type = command.SetRtcTime
 
 	return *c

@@ -8,7 +8,7 @@ import (
 )
 
 type getTimeLimitCommandInterface interface {
-	Run(host string) (limit int, err error)
+	Run() (limit int, err error)
 	parseResponse(response string) (limit int, err error)
 }
 
@@ -17,10 +17,8 @@ type getTimeLimitCommand struct {
 	command.Command
 }
 
-func (c getTimeLimitCommand) Run(host string) (limit int, err error) {
-	c.Type = command.GetTimeLimit
-
-	response, err := c.SendRequest(host)
+func (c getTimeLimitCommand) Run() (limit int, err error) {
+	response, err := c.SendRequest()
 
 	if err != nil {
 		return
@@ -46,8 +44,9 @@ func (c getTimeLimitCommand) parseResponse(response string) (limit int, err erro
 	return
 }
 
-func New() getTimeLimitCommand {
+func New(host string) getTimeLimitCommand {
 	c := new(getTimeLimitCommand)
+	c.Host = host
 	c.Type = command.GetTimeLimit
 
 	return *c

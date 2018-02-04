@@ -24,7 +24,7 @@ func TestGetChargeLimit_Run(t *testing.T) {
 
 	assert.NoError(t, r.Error)
 
-	kwh, err := New().Run("192.168.1.156")
+	kwh, err := New("192.168.1.156").Run()
 
 	assert.NoError(t, err)
 	assert.NotZero(t, kwh)
@@ -34,5 +34,5 @@ func TestGetChargeLimit_Run(t *testing.T) {
 }
 
 func TestNew(t *testing.T) {
-	assert.NotEmpty(t, New())
+	assert.NotEmpty(t, New("192.168.1.156"))
 }

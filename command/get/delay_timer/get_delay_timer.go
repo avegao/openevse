@@ -8,7 +8,7 @@ import (
 )
 
 type getDelayTimerInterface interface {
-	Run(response string) (startTime string, endTime string, err error)
+	Run() (startTime string, endTime string, err error)
 	parseResponse(response string) (startTime string, endTime string, err error)
 }
 
@@ -17,10 +17,8 @@ type getDelayTimer struct {
 	command.Command
 }
 
-func (c getDelayTimer) Run(host string) (startTime string, endTime string, err error) {
-	c.Type = command.GetDelayTimer
-
-	response, err := c.SendRequest(host)
+func (c getDelayTimer) Run() (startTime string, endTime string, err error) {
+	response, err := c.SendRequest()
 
 	if err != nil {
 		return
@@ -44,8 +42,9 @@ func (c getDelayTimer) parseResponse(response string) (startTime string, endTime
 	return
 }
 
-func New() getDelayTimer {
+func New(host string) getDelayTimer {
 	c := new(getDelayTimer)
+	c.Host = host
 	c.Type = command.GetDelayTimer
 
 	return *c

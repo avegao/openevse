@@ -7,7 +7,7 @@ import (
 )
 
 type getAmmeterSettingsCommandInterface interface {
-	Run(response string) (currentScaleFactor int, currentOffset int, err error)
+	Run() (currentScaleFactor int, currentOffset int, err error)
 	parseResponse(response string) (currentScaleFactor int, currentOffset int, err error)
 }
 
@@ -16,10 +16,8 @@ type getAmmeterSettingsCommand struct {
 	command.Command
 }
 
-func (c getAmmeterSettingsCommand) Run(host string) (currentScaleFactor int, currentOffset int, err error) {
-	c.Type = command.GetAmmeterSettings
-
-	response, err := c.SendRequest(host)
+func (c getAmmeterSettingsCommand) Run() (currentScaleFactor int, currentOffset int, err error) {
+	response, err := c.SendRequest()
 
 	if err != nil {
 		return
@@ -42,8 +40,9 @@ func (c getAmmeterSettingsCommand) parseResponse(response string) (currentScaleF
 	return
 }
 
-func New() getAmmeterSettingsCommand {
+func New(host string) getAmmeterSettingsCommand {
 	c := getAmmeterSettingsCommand{}
+	c.Host = host
 	c.Type = command.GetAmmeterSettings
 
 	return c
