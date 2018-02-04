@@ -39,7 +39,7 @@ const (
 	SetGfiCheck                  Type = "SF"
 	SetGroundCheck               Type = "SG"
 	SetOverTemperatureThresholds Type = "SO"
-	SetRtcClock                  Type = "S1"
+	SetRtcTime                   Type = "S1"
 	SetServiceLevel              Type = "SL"
 	SetState                     Type = "ST"
 	SetStuckRelayCheck           Type = "SR"
