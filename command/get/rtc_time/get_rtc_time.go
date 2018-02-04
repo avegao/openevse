@@ -10,7 +10,7 @@ import (
 )
 
 type getRtcTimeCommandInterface interface {
-	Run(response string) (rtcTime time.Time, err error)
+	Run(host string) (rtcTime time.Time, err error)
 	parseResponse(response string) (rtcTime time.Time, err error)
 }
 

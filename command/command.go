@@ -3,6 +3,7 @@ package command
 import (
 	"fmt"
 	"net/http"
+	"net/url"
 )
 
 const (
@@ -15,9 +16,17 @@ type Command struct {
 	Value string
 }
 
-func (c Command) SendRequest(host string) (*Response, error) {
-	url := fmt.Sprintf(urlTemplate, host, c.Type)
-	response, err := http.Get(url)
+func (c Command) SendRequest(host string, parameters ...string) (*Response, error) {
+	parametersString := fmt.Sprintf("%s", c.Type)
+
+	for _, parameter := range parameters {
+		parametersString += fmt.Sprintf(" %s", parameter)
+	}
+
+	parametersString = url.QueryEscape(parametersString)
+
+	urlRequest := fmt.Sprintf(urlTemplate, host, parametersString)
+	response, err := http.Get(urlRequest)
 
 	if err != nil {
 		return nil, err
