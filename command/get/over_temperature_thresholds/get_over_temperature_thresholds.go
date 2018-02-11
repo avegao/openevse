@@ -7,17 +7,17 @@ import (
 	"github.com/avegao/openevse/util"
 )
 
-type getOverTemperatureThresholdsInterface interface {
+type getOverTemperatureThresholdsCommandInterface interface {
 	Run() (ambient float32, ir float32, err error)
 	parseResponse(response string) (ambient float32, ir float32, err error)
 }
 
-type getOverTemperatureThresholds struct {
-	getOverTemperatureThresholdsInterface
+type getOverTemperatureThresholdsCommand struct {
+	getOverTemperatureThresholdsCommandInterface
 	command.Command
 }
 
-func (c getOverTemperatureThresholds) Run() (ambient float32, ir float32, err error) {
+func (c getOverTemperatureThresholdsCommand) Run() (ambient float32, ir float32, err error) {
 	response, err := c.SendRequest()
 
 	if err != nil {
@@ -27,7 +27,7 @@ func (c getOverTemperatureThresholds) Run() (ambient float32, ir float32, err er
 	return c.parseResponse(response.Response)
 }
 
-func (c getOverTemperatureThresholds) parseResponse(response string) (ambient float32, ir float32, err error) {
+func (c getOverTemperatureThresholdsCommand) parseResponse(response string) (ambient float32, ir float32, err error) {
 	split := strings.Split(response, " ")
 
 	switch split[0] {
@@ -53,8 +53,8 @@ func (c getOverTemperatureThresholds) parseResponse(response string) (ambient fl
 	return
 }
 
-func New(host string) getOverTemperatureThresholds {
-	c := new(getOverTemperatureThresholds)
+func New(host string) getOverTemperatureThresholdsCommand {
+	c := new(getOverTemperatureThresholdsCommand)
 	c.Host = host
 	c.Type = command.GetOverTemperatureThresholds
 

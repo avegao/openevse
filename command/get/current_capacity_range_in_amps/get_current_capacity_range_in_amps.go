@@ -1,4 +1,4 @@
-package currentCapacityRangeInAmps
+package getCurrentCapacityRangeInAmps
 
 import (
 	"strings"
@@ -7,17 +7,17 @@ import (
 	"github.com/avegao/openevse/util"
 )
 
-type getCurrentCapacityRangeInAmpsInterface interface {
+type getCurrentCapacityRangeInAmpsCommandInterface interface {
 	Run() (minAmps int, maxAmps int, err error)
 	parseResponse(response string) (minAmps int, maxAmps int, err error)
 }
 
-type getCurrentCapacityRangeInAmps struct {
-	getCurrentCapacityRangeInAmpsInterface
+type getCurrentCapacityRangeInAmpsCommand struct {
+	getCurrentCapacityRangeInAmpsCommandInterface
 	command.Command
 }
 
-func (c getCurrentCapacityRangeInAmps) Run() (minAmps int, maxAmps int, err error) {
+func (c getCurrentCapacityRangeInAmpsCommand) Run() (minAmps int, maxAmps int, err error) {
 	response, err := c.SendRequest()
 
 	if err != nil {
@@ -27,7 +27,7 @@ func (c getCurrentCapacityRangeInAmps) Run() (minAmps int, maxAmps int, err erro
 	return c.parseResponse(response.Response)
 }
 
-func (c getCurrentCapacityRangeInAmps) parseResponse(response string) (minAmps int, maxAmps int, err error) {
+func (c getCurrentCapacityRangeInAmpsCommand) parseResponse(response string) (minAmps int, maxAmps int, err error) {
 	split := strings.Split(response, " ")
 
 	switch split[0] {
@@ -48,8 +48,8 @@ func (c getCurrentCapacityRangeInAmps) parseResponse(response string) (minAmps i
 	return
 }
 
-func New(host string) getCurrentCapacityRangeInAmps {
-	c := new(getCurrentCapacityRangeInAmps)
+func New(host string) getCurrentCapacityRangeInAmpsCommand {
+	c := new(getCurrentCapacityRangeInAmpsCommand)
 	c.Host = host
 	c.Type = command.GetCurrentCapacityRangeInAmps
 

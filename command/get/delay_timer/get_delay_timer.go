@@ -7,17 +7,17 @@ import (
 	"fmt"
 )
 
-type getDelayTimerInterface interface {
+type getDelayTimerCommandInterface interface {
 	Run() (startTime string, endTime string, err error)
 	parseResponse(response string) (startTime string, endTime string, err error)
 }
 
-type getDelayTimer struct {
-	getDelayTimerInterface
+type getDelayTimerCommand struct {
+	getDelayTimerCommandInterface
 	command.Command
 }
 
-func (c getDelayTimer) Run() (startTime string, endTime string, err error) {
+func (c getDelayTimerCommand) Run() (startTime string, endTime string, err error) {
 	response, err := c.SendRequest()
 
 	if err != nil {
@@ -27,7 +27,7 @@ func (c getDelayTimer) Run() (startTime string, endTime string, err error) {
 	return c.parseResponse(response.Response)
 }
 
-func (c getDelayTimer) parseResponse(response string) (startTime string, endTime string, err error) {
+func (c getDelayTimerCommand) parseResponse(response string) (startTime string, endTime string, err error) {
 	split := strings.Split(response, " ")
 
 	switch split[0] {
@@ -42,8 +42,8 @@ func (c getDelayTimer) parseResponse(response string) (startTime string, endTime
 	return
 }
 
-func New(host string) getDelayTimer {
-	c := new(getDelayTimer)
+func New(host string) getDelayTimerCommand {
+	c := new(getDelayTimerCommand)
 	c.Host = host
 	c.Type = command.GetDelayTimer
 

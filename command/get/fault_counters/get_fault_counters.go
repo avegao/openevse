@@ -7,17 +7,17 @@ import (
 	"github.com/avegao/openevse/util"
 )
 
-type getFaultCountersInterface interface {
+type getFaultCountersCommandInterface interface {
 	Run() (gfdi int, noGround int, stuckRelay int, err error)
 	parseResponse(response string) (gfdi int, noGround int, stuckRelay int, err error)
 }
 
-type getFaultCounters struct {
-	getFaultCountersInterface
+type getFaultCountersCommand struct {
+	getFaultCountersCommandInterface
 	command.Command
 }
 
-func (c getFaultCounters) Run() (gfdi int, noGround int, stuckRelay int, err error) {
+func (c getFaultCountersCommand) Run() (gfdi int, noGround int, stuckRelay int, err error) {
 	response, err := c.SendRequest()
 
 	if err != nil {
@@ -27,7 +27,7 @@ func (c getFaultCounters) Run() (gfdi int, noGround int, stuckRelay int, err err
 	return c.parseResponse(response.Response)
 }
 
-func (c getFaultCounters) parseResponse(response string) (gfdi int, noGround int, stuckRelay int, err error) {
+func (c getFaultCountersCommand) parseResponse(response string) (gfdi int, noGround int, stuckRelay int, err error) {
 	split := strings.Split(response, " ")
 
 	switch split[0] {
@@ -52,8 +52,8 @@ func (c getFaultCounters) parseResponse(response string) (gfdi int, noGround int
 	return
 }
 
-func New(host string) getFaultCounters {
-	c := new(getFaultCounters)
+func New(host string) getFaultCountersCommand {
+	c := new(getFaultCountersCommand)
 	c.Host = host
 	c.Type = command.GetFaultCounters
 

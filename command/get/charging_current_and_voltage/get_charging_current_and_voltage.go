@@ -7,17 +7,17 @@ import (
 	"github.com/avegao/openevse/util"
 )
 
-type getChargingCurrentAndVoltageInterface interface {
+type getChargingCurrentAndVoltageCommandInterface interface {
 	Run() (milliAmps int, milliVolts int, err error)
 	parseResponse(response string) (milliAmps int, milliVolts int, err error)
 }
 
-type getChargingCurrentAndVoltage struct {
-	getChargingCurrentAndVoltageInterface
+type getChargingCurrentAndVoltageCommand struct {
+	getChargingCurrentAndVoltageCommandInterface
 	command.Command
 }
 
-func (c getChargingCurrentAndVoltage) Run() (milliAmps int, milliVolts int, err error) {
+func (c getChargingCurrentAndVoltageCommand) Run() (milliAmps int, milliVolts int, err error) {
 	response, err := c.SendRequest()
 
 	if err != nil {
@@ -27,7 +27,7 @@ func (c getChargingCurrentAndVoltage) Run() (milliAmps int, milliVolts int, err 
 	return c.parseResponse(response.Response)
 }
 
-func (c getChargingCurrentAndVoltage) parseResponse(response string) (milliAmps int, milliVolts int, err error) {
+func (c getChargingCurrentAndVoltageCommand) parseResponse(response string) (milliAmps int, milliVolts int, err error) {
 	split := strings.Split(response, " ")
 
 	switch split[0] {
@@ -48,8 +48,8 @@ func (c getChargingCurrentAndVoltage) parseResponse(response string) (milliAmps 
 	return
 }
 
-func New(host string) getChargingCurrentAndVoltage {
-	c := new(getChargingCurrentAndVoltage)
+func New(host string) getChargingCurrentAndVoltageCommand {
+	c := new(getChargingCurrentAndVoltageCommand)
 	c.Host = host
 	c.Type = command.GetChargingCurrentAndVoltage
 

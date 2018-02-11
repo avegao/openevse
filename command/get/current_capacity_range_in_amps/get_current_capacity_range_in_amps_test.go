@@ -1,4 +1,4 @@
-package currentCapacityRangeInAmps
+package getCurrentCapacityRangeInAmps
 
 import (
 	"testing"

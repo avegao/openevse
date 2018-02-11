@@ -7,17 +7,17 @@ import (
 	"github.com/avegao/openevse/util"
 )
 
-type getChargeLimitInterface interface {
+type getChargeLimitCommandInterface interface {
 	Run() (kwh int, err error)
 	parseResponse(response string) (kwh int, err error)
 }
 
-type getChargeLimit struct {
-	getChargeLimitInterface
+type getChargeLimitCommand struct {
+	getChargeLimitCommandInterface
 	command.Command
 }
 
-func (c getChargeLimit) Run() (kwh int, err error) {
+func (c getChargeLimitCommand) Run() (kwh int, err error) {
 	response, err := c.SendRequest()
 
 	if err != nil {
@@ -27,7 +27,7 @@ func (c getChargeLimit) Run() (kwh int, err error) {
 	return c.parseResponse(response.Response)
 }
 
-func (c getChargeLimit) parseResponse(response string) (kwh int, err error) {
+func (c getChargeLimitCommand) parseResponse(response string) (kwh int, err error) {
 	split := strings.Split(response, " ")
 
 	switch split[0] {
@@ -42,8 +42,8 @@ func (c getChargeLimit) parseResponse(response string) (kwh int, err error) {
 	return
 }
 
-func New(host string) getChargeLimit {
-	c := new(getChargeLimit)
+func New(host string) getChargeLimitCommand {
+	c := new(getChargeLimitCommand)
 	c.Host = host
 	c.Type = command.GetChargeLimit
 

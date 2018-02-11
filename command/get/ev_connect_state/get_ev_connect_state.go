@@ -8,17 +8,17 @@ import (
 	"github.com/avegao/openevse/util"
 )
 
-type getEvConnectStateInterface interface {
+type getEvConnectStateCommandInterface interface {
 	Run() (state evConnectState.EvConnectState, err error)
 	parseResponse(response string) (state evConnectState.EvConnectState, err error)
 }
 
-type getEvConnectState struct {
-	getEvConnectStateInterface
+type getEvConnectStateCommand struct {
+	getEvConnectStateCommandInterface
 	command.Command
 }
 
-func (c getEvConnectState) Run() (state evConnectState.EvConnectState, err error) {
+func (c getEvConnectStateCommand) Run() (state evConnectState.EvConnectState, err error) {
 	response, err := c.SendRequest()
 
 	if err != nil {
@@ -28,7 +28,7 @@ func (c getEvConnectState) Run() (state evConnectState.EvConnectState, err error
 	return c.parseResponse(response.Response)
 }
 
-func (c getEvConnectState) parseResponse(response string) (state evConnectState.EvConnectState, err error) {
+func (c getEvConnectStateCommand) parseResponse(response string) (state evConnectState.EvConnectState, err error) {
 	split := strings.Split(response, " ")
 
 	switch split[0] {
@@ -46,8 +46,8 @@ func (c getEvConnectState) parseResponse(response string) (state evConnectState.
 	return
 }
 
-func New(host string) getEvConnectState {
-	c := new(getEvConnectState)
+func New(host string) getEvConnectStateCommand {
+	c := new(getEvConnectStateCommand)
 	c.Host = host
 	c.Type = command.GetEvConnectState
 

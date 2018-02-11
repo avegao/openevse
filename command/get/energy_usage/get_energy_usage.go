@@ -7,17 +7,17 @@ import (
 	"github.com/avegao/openevse/util"
 )
 
-type getEnergyUsageInterface interface {
+type getEnergyUsageCommandInterface interface {
 	Run() (whInSession int, whAccumulated int, err error)
 	parseResponse(response string) (whInSession int, whAccumulated int, err error)
 }
 
-type getEnergyUsage struct {
-	getEnergyUsageInterface
+type getEnergyUsageCommand struct {
+	getEnergyUsageCommandInterface
 	command.Command
 }
 
-func (c getEnergyUsage) Run() (whInSession int, whAccumulated int, err error) {
+func (c getEnergyUsageCommand) Run() (whInSession int, whAccumulated int, err error) {
 	response, err := c.SendRequest()
 
 	if err != nil {
@@ -27,7 +27,7 @@ func (c getEnergyUsage) Run() (whInSession int, whAccumulated int, err error) {
 	return c.parseResponse(response.Response)
 }
 
-func (c getEnergyUsage) parseResponse(response string) (whInSession int, whAccumulated int, err error) {
+func (c getEnergyUsageCommand) parseResponse(response string) (whInSession int, whAccumulated int, err error) {
 	split := strings.Split(response, " ")
 
 	switch split[0] {
@@ -45,8 +45,8 @@ func (c getEnergyUsage) parseResponse(response string) (whInSession int, whAccum
 	return
 }
 
-func New(host string) getEnergyUsage {
-	c := new(getEnergyUsage)
+func New(host string) getEnergyUsageCommand {
+	c := new(getEnergyUsageCommand)
 	c.Host = host
 	c.Type = command.GetEnergyUsage
 
