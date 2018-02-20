@@ -8,8 +8,8 @@ import (
 )
 
 type getEnergyUsageCommandInterface interface {
-	Run() (whInSession int, whAccumulated int, err error)
-	parseResponse(response string) (whInSession int, whAccumulated int, err error)
+	Run() (whInSession float32, whAccumulated float32, err error)
+	parseResponse(response string) (whInSession float32, whAccumulated float32, err error)
 }
 
 type getEnergyUsageCommand struct {
@@ -17,7 +17,7 @@ type getEnergyUsageCommand struct {
 	command.Command
 }
 
-func (c getEnergyUsageCommand) Run() (whInSession int, whAccumulated int, err error) {
+func (c getEnergyUsageCommand) Run() (whInSession float32, whAccumulated float32, err error) {
 	response, err := c.SendRequest()
 
 	if err != nil {
@@ -27,15 +27,16 @@ func (c getEnergyUsageCommand) Run() (whInSession int, whAccumulated int, err er
 	return c.parseResponse(response.Response)
 }
 
-func (c getEnergyUsageCommand) parseResponse(response string) (whInSession int, whAccumulated int, err error) {
+func (c getEnergyUsageCommand) parseResponse(response string) (whInSession float32, whAccumulated float32, err error) {
 	split := strings.Split(response, " ")
 
 	switch split[0] {
 	case command.SuccessResponse:
-		whInSession, whAccumulated, err = parseResponseFromSplit(split)
+		var whInSessionInt, whAccumulatedInt int
+		whInSessionInt, whAccumulatedInt, err = parseResponseFromSplit(split)
 
-		whInSession /= 3600
-		whAccumulated /= 1000
+		whInSession = float32(whInSessionInt)/3600
+		whAccumulated = float32(whAccumulatedInt)/1000
 	case command.FailureResponse:
 		err = errors.New("openevse - invalid request")
 	default:
