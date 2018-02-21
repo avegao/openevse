@@ -45,7 +45,7 @@ func GetDelayTimer(host string) (startTime string, endTime string, err error) {
 	return getDelayTimer.New(host).Run()
 }
 
-func GetEnergyUsage(host string) (whInSession int, whAccumulated int, err error) {
+func GetEnergyUsage(host string) (whInSession float32, whAccumulated float32, err error) {
 	return getEnergyUsage.New(host).Run()
 }
 
